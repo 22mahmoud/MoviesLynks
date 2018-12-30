@@ -15,7 +15,6 @@
     "styled-system": "^3.1.11"
   },
   "scripts": {
-    "now-build": "react-scripts build && mv build dist",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

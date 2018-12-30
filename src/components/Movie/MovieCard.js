@@ -50,8 +50,8 @@ export default function MovieCard({ movie }) {
           <Flex>
             {new Array(Math.ceil(movie.vote_average * 0.5))
               .fill("⭐")
-              .map(s => (
-                <Text> {s} </Text>
+              .map((s, i) => (
+                <Text key={i}> {s} </Text>
               ))}
           </Flex>
           <Text fontWeight={0}>
