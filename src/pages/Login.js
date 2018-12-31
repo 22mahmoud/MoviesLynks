@@ -7,7 +7,7 @@ export default function Login() {
       <Helmet>
         <title>Movies Lynks | Login</title>
       </Helmet>
-      <h1> Login </h1>;
+      <h1> Login </h1>
     </>
   );
 }

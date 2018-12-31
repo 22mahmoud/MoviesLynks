@@ -7,7 +7,7 @@ export default function Signup() {
       <Helmet>
         <title>Movies Lynks | Signup</title>
       </Helmet>
-      <h1> Signup </h1>;
+      <h1> Signup </h1>
     </>
   );
 }

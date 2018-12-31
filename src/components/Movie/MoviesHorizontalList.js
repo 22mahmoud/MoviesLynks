@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Flex, Box, Heading, Button } from "rebass";
+import { LeftArrow } from "styled-icons/boxicons-solid/LeftArrow";
+import { RightArrow } from "styled-icons/boxicons-solid/RightArrow";
 
 import useFetchApi from "../../utils/useFetchApi";
 import MovieCard from "./MovieCard";
@@ -15,9 +17,9 @@ const Wrapper = styled(Flex)`
   width: 100%;
 `;
 
-export default function MoviesList({ url, emoji, title, ariaLabel }) {
+export default function MoviesList({ url, emoji, title, ariaLabel, opt = {} }) {
   let wrapperRef = React.createRef();
-  const { data, isLoading } = useFetchApi(url);
+  const { data, isLoading } = useFetchApi(url, opt);
 
   const handleScroll = type => {
     if (wrapperRef.current) {
@@ -61,7 +63,7 @@ export default function MoviesList({ url, emoji, title, ariaLabel }) {
             onClick={() => handleScroll("LEFT")}
             bg="transparent"
           >
-            <span> {`👈`} </span>
+            <LeftArrow color="white" size={24} />
           </Button>
           <Button
             onClick={() => handleScroll("RIGHT")}
@@ -69,7 +71,7 @@ export default function MoviesList({ url, emoji, title, ariaLabel }) {
             bg="transparent"
             style={{ cursor: "pointer" }}
           >
-            <span> {`👉`} </span>
+            <RightArrow color="white" size={24} />
           </Button>
         </Flex>
       </Flex>

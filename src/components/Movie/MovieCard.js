@@ -3,6 +3,7 @@ import { Card, Text, Flex, Button } from "rebass";
 import styled from "styled-components";
 
 import { Relative, Absolute } from "../../ui/position";
+import MovieStars from "./MovieStars";
 
 const Wrapper = styled(Card)`
   cursor: pointer;
@@ -16,7 +17,9 @@ const Details = styled(Absolute)`
   height: 100%;
   width: 100%;
   color: #fff;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(10, 8, 24, 0.8);
+  transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+
   z-index: 55;
 `;
 
@@ -47,20 +50,16 @@ export default function MovieCard({ movie }) {
           alignItems="center"
           flexDirection="column"
         >
-          <Flex>
-            {new Array(Math.ceil(movie.vote_average * 0.5))
-              .fill("⭐")
-              .map((s, i) => (
-                <Text key={i}> {s} </Text>
-              ))}
-          </Flex>
+          <MovieStars voteAverage={movie.vote_average} />
           <Text fontWeight={0}>
             <span style={{ fontWeight: 700 }}>
               {movie.vote_average} {` `}
             </span>
             / 10
           </Text>
-          <Button mt={4}>View</Button>
+          <Button variant="primary" mt={4}>
+            View
+          </Button>
         </Flex>
       </Details>
       <MovieCardWrapper
@@ -70,6 +69,7 @@ export default function MovieCard({ movie }) {
         })`}
         backgroundSize="cover"
         borderRadius={5}
+        backgroundPosition="center"
       />
     </Wrapper>
   );

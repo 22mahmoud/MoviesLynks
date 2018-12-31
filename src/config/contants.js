@@ -8,7 +8,8 @@ export const MOVIE_DB_API = {
 export const ROUTES = {
   HOME: "/",
   SIGN_UP: "/signup",
-  LOG_IN: "/login"
+  LOG_IN: "/login",
+  SEARCH_RESULTS: "/search/:query"
 };
 
 export const THEME = {
@@ -16,8 +17,22 @@ export const THEME = {
   fontWeights: [300, 400, 700],
   colors: {
     blue: "#07c",
-    lightgray: "#f6f6ff"
+    lightgray: "#f6f6ff",
+    lightBlue: "#678ade",
+    cornflower: "#383759",
+    darkBlue: "#26283f"
   },
   space: [0, 4, 8, 16, 32, 64, 128, 256],
-  breakpoints: [640, 768, 1024]
+  breakpoints: ["40em", "52em", "64em"],
+  buttons: {
+    primary: {
+      color: "#fff",
+      backgroundColor: "#678ade",
+      borderRadius: 24,
+      paddingLeft: 24,
+      paddingRight: 24,
+      boxShadow: "0 2px 16px rgba(103,138,222, 0.4)",
+      cursor: "pointer"
+    }
+  }
 };
