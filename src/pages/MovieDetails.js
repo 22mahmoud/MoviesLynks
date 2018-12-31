@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { Box, Heading, Text, Image, Flex } from "rebass";
+import { Box, Flex, Image } from "rebass";
 
+import MoviesHorizontalList from "../components/Movie/MoviesHorizontalList";
+import MovieStars from "../components/Movie/MovieStars";
 import useFetchApi from "../utils/useFetchApi";
+import MovieGenres from "../components/Movie/MovieGenres";
+import MovieDetailsInfo from "../components/Movie/MovieDetailsInfo";
+import MovieRating from "../components/Movie/MovieRating";
+import usePrevious from "../utils/usePrevious";
+
 export default function MovieDetails({ match }) {
   const { id } = match.params;
-  const { data, isLoading, isError } = useFetchApi(`/movie/${id}`);
+  const { data, isLoading, isError, GET } = useFetchApi(`/movie/${id}`);
+  const prevMovieId = usePrevious({ id });
+
+  useEffect(
+    () => {
+      if (prevMovieId) {
+        if (prevMovieId.id !== id) {
+          GET(`/movie/${id}`, {});
+        }
+      }
+    },
+    [prevMovieId]
+  );
   console.log("DATA", data);
+
   if (isLoading) {
     return null;
   }
@@ -15,23 +35,34 @@ export default function MovieDetails({ match }) {
     return null;
   }
 
+  const { poster_path, vote_average, genres, title, tagline, overview } = data;
   return (
     <>
-      <Helmet>
-        <title>Movies Lynks | Movie</title>
-      </Helmet>
-      <Flex flexDirection="row">
+      <Helmet title={title} />
+      <Flex flexWrap="wrap">
         <Box>
-          <Image src={`https://image.tmdb.org/t/p/w300/${data.poster_path}`} />
+          <Image src={`https://image.tmdb.org/t/p/w200/${poster_path}`} />
         </Box>
-        <Box>
-          <Heading fontSize={[3, 6]}> {data.title} </Heading>
-          <Heading fontSize={[2, 3]} fontWeight={0}>
-            {data.tagline}
-          </Heading>
-          <Text fontSize={2}> {data.overview}</Text>
+
+        <Box ml={[0, 4]} width={[1, 1 / 2]}>
+          <MovieRating voteAverage={vote_average} />
+          <MovieStars voteAverage={vote_average} />
+          <MovieGenres genres={genres} />
+          <MovieDetailsInfo
+            title={title}
+            tagline={tagline}
+            overview={overview}
+          />
         </Box>
       </Flex>
+      <hr />
+      <Box mt={5} />
+      <MoviesHorizontalList
+        url={`/movie/${id}/similar`}
+        title="Similar Movies"
+        emoji={`🎬`}
+        ariaLabel="movie"
+      />
     </>
   );
 }

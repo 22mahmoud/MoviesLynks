@@ -48,7 +48,7 @@ export default function App() {
           <>
             <Header />
             <Switch>
-              <Box px={[2, 4, 6]} py={2}>
+              <Box px={[2, 4, 6]}>
                 <Route exact path={ROUTES.HOME} component={HomePage} />
                 <Route path={ROUTES.SIGN_UP} component={SignupPage} />
                 <Route path={ROUTES.LOG_IN} component={LoginPage} />

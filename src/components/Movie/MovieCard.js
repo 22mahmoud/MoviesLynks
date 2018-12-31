@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Card, Text, Flex, Button } from "rebass";
+import { Card, Flex, Button } from "rebass";
 import styled, { css } from "styled-components";
 
 import { Relative, Absolute } from "../../ui/position";
 import { Link } from "../../ui/Link";
 import MovieStars from "./MovieStars";
+import MovieRating from "./MovieRating";
 
 const Wrapper = styled(Card)`
   cursor: pointer;
@@ -55,12 +56,7 @@ export default function MovieCard({ movie }) {
           flexDirection="column"
         >
           <MovieStars voteAverage={movie.vote_average} />
-          <Text fontWeight={0}>
-            <span style={{ fontWeight: 700 }}>
-              {movie.vote_average} {` `}
-            </span>
-            / 10
-          </Text>
+          <MovieRating voteAverage={movie.vote_average} />
           <Button variant="primary" mt={4} as={Link} to={`/movie/${movie.id}`}>
             View
           </Button>
@@ -69,9 +65,11 @@ export default function MovieCard({ movie }) {
       <MovieCardWrapper
         boxShadow="0 2px 25px rgba(103,138,222, 0.4)"
         isHoverd={isHoverd}
-        backgroundImage={`url(https://image.tmdb.org/t/p/w200/${
+        backgroundImage={
           movie.poster_path
-        })`}
+            ? `url(https://image.tmdb.org/t/p/w200/${movie.poster_path})`
+            : "url(https://via.placeholder.com/200x320?text=No%20Image)"
+        }
         backgroundSize="cover"
         borderRadius={5}
         backgroundPosition="center"

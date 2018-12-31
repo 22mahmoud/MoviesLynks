@@ -6,10 +6,10 @@ import { StarHalf } from "styled-icons/boxicons-solid/StarHalf";
 export default function MovieStars({ voteAverage }) {
   return (
     <Flex>
-      {Array.from({ length: Math.round(voteAverage * 0.5) }).map((_, i) => (
+      {Array.from({ length: Math.floor(voteAverage * 0.5) }).map((_, i) => (
         <Star key={i} size={24} color="white" />
       ))}{" "}
-      {String(voteAverage).split(".")[1] >= 5 && (
+      {!String(voteAverage).split(".")[1] < 5 && (
         <StarHalf size={24} color="white" />
       )}
     </Flex>

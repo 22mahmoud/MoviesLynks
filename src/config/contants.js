@@ -35,5 +35,6 @@ export const THEME = {
       boxShadow: "0 2px 16px rgba(103,138,222, 0.4)",
       cursor: "pointer"
     }
-  }
+  },
+  shadows: { light: "0 2px 16px rgba(103,138,222, 0.4)" }
 };
