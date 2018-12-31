@@ -42,8 +42,8 @@ export default function MovieCard({ movie }) {
   return (
     <Wrapper
       isHoverd={isHoverd}
-      onMouseEnter={toggleHover}
-      onMouseLeave={toggleHover}
+      onMouseOver={toggleHover}
+      onMouseOut={toggleHover}
       as={Relative}
       py={3}
       m={1}
