@@ -36,16 +36,16 @@ const StyledInput = styled("input")`
   ${borderColor};
 `;
 
-export function Input({ icon, ...props }) {
+export function Input({ icon, as, ...props }) {
   if (icon) {
     return (
       <Relative>
-        <StyledInput {...props} />
+        <StyledInput {...props} as={as} />
         <Absolute top="0" right="0" style={{ opacity: 0.4 }}>
           {icon}
         </Absolute>
       </Relative>
     );
   }
-  return <StyledInput {...props} />;
+  return <StyledInput {...props} as={as} />;
 }

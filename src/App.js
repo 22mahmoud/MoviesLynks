@@ -45,24 +45,29 @@ export default function App() {
         </Helmet>
         <GlobalStyle />
         <Router>
-          <>
-            <Header />
-            <Switch>
-              <Box px={[2, 4, 6]}>
-                <Route exact path={ROUTES.HOME} component={HomePage} />
-                <Route path={ROUTES.SIGN_UP} component={SignupPage} />
-                <Route path={ROUTES.LOG_IN} component={LoginPage} />
-                <Route
-                  path={ROUTES.SEARCH_RESULTS}
-                  component={SearchResultsPage}
-                />
-                <Route
-                  path={ROUTES.MOVIE_DETAILS}
-                  component={MovieDetailsPage}
-                />
-              </Box>
-            </Switch>
-          </>
+          <Switch>
+            <Route exact path={ROUTES.SIGN_UP} component={SignupPage} />
+            <Route exact path={ROUTES.LOG_IN} component={LoginPage} />
+            <Route
+              path="/"
+              render={() => (
+                <>
+                  <Header />
+                  <Box px={[2, 4, 6]}>
+                    <Route exact path={ROUTES.HOME} render={HomePage} />
+                    <Route
+                      path={ROUTES.SEARCH_RESULTS}
+                      component={SearchResultsPage}
+                    />
+                    <Route
+                      path={ROUTES.MOVIE_DETAILS}
+                      component={MovieDetailsPage}
+                    />
+                  </Box>
+                </>
+              )}
+            />
+          </Switch>
         </Router>
       </>
     </ThemeProvider>
