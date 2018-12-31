@@ -9,17 +9,19 @@ import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import SignupPage from "./pages/Signup";
 import SearchResultsPage from "./pages/SearchResults";
-
+import MovieDetailsPage from "./pages/MovieDetails";
 import Header from "./components/Header";
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
+  *, **, html, body {
+    box-sizing: border-box;
+  }
 
   html, body {
     font-size: 18px;
     line-height: 1.6;
     font-family: 'Roboto', sans-serif;
-    box-sizing: border-box;
     font-style: normal;
     padding: 0;
     margin: 0;
@@ -53,6 +55,10 @@ export default function App() {
                 <Route
                   path={ROUTES.SEARCH_RESULTS}
                   component={SearchResultsPage}
+                />
+                <Route
+                  path={ROUTES.MOVIE_DETAILS}
+                  component={MovieDetailsPage}
                 />
               </Box>
             </Switch>

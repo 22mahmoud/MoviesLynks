@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Card, Text, Flex, Button } from "rebass";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { Relative, Absolute } from "../../ui/position";
+import { Link } from "../../ui/Link";
 import MovieStars from "./MovieStars";
 
 const Wrapper = styled(Card)`
@@ -17,17 +18,19 @@ const Details = styled(Absolute)`
   height: 100%;
   width: 100%;
   color: #fff;
-  background: rgba(10, 8, 24, 0.8);
   transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
-
   z-index: 55;
 `;
 
 const MovieCardWrapper = styled(Card)`
   transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
-  filter: ${({ isHoverd }) => (isHoverd ? " blur(2px)" : "blur(0px)")};
+  position: relative;
+  ${({ isHoverd }) =>
+    isHoverd &&
+    css`
+      filter: blur(2px) opacity(0.1);
+    `};
   height: 100%;
-  width: 100%;
 `;
 
 export default function MovieCard({ movie }) {
@@ -41,6 +44,7 @@ export default function MovieCard({ movie }) {
       onMouseEnter={toggleHover}
       onMouseLeave={toggleHover}
       as={Relative}
+      py={3}
       m={1}
     >
       <Details isHoverd={isHoverd}>
@@ -57,12 +61,13 @@ export default function MovieCard({ movie }) {
             </span>
             / 10
           </Text>
-          <Button variant="primary" mt={4}>
+          <Button variant="primary" mt={4} as={Link} to={`/movie/${movie.id}`}>
             View
           </Button>
         </Flex>
       </Details>
       <MovieCardWrapper
+        boxShadow="0 2px 25px rgba(103,138,222, 0.4)"
         isHoverd={isHoverd}
         backgroundImage={`url(https://image.tmdb.org/t/p/w200/${
           movie.poster_path

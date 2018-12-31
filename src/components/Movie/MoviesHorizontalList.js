@@ -9,6 +9,7 @@ import MovieCard from "./MovieCard";
 
 const Wrapper = styled(Flex)`
   overflow-x: auto;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   &::-webkit-scrollbar {

@@ -9,7 +9,8 @@ export const ROUTES = {
   HOME: "/",
   SIGN_UP: "/signup",
   LOG_IN: "/login",
-  SEARCH_RESULTS: "/search/:query"
+  SEARCH_RESULTS: "/search/:query",
+  MOVIE_DETAILS: "/movie/:id"
 };
 
 export const THEME = {

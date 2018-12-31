@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 
 import axios from "../config/axios";
 
-const useFetchApi = (url, opts = {}) => {
+const useFetchApi = (intialUrl, intialOpts = {}) => {
+  const [url, setUrl] = useState(intialUrl);
+  const [opts, setOpts] = useState(intialOpts);
   const [data, setData] = useState([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -23,14 +25,19 @@ const useFetchApi = (url, opts = {}) => {
     setIsLoading(false);
   };
 
+  const GET = (url, opts) => {
+    setUrl(url);
+    setOpts(opts);
+  };
+
   useEffect(
     () => {
       fetchData();
     },
-    [url]
+    [url, opts]
   );
 
-  return { data, isError, isLoading };
+  return { data, isError, isLoading, GET };
 };
 
 export default useFetchApi;

@@ -1,6 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import MoviesHorizontalList from "../components/Movie/MoviesHorizontalList";
+
+import MoviesGridList from "../components/Movie/MoviesGridList";
 
 export default function SearchResults({ match }) {
   const { query } = match.params;
@@ -10,7 +11,7 @@ export default function SearchResults({ match }) {
       <Helmet>
         <title>Movies Lynks | Results</title>
       </Helmet>
-      <MoviesHorizontalList
+      <MoviesGridList
         url={`/search/movie`}
         opt={{ query }}
         title="Search Results"

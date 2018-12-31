@@ -10,7 +10,6 @@ import {
   borderColor
 } from "styled-system";
 import styled from "styled-components";
-import { Text } from "rebass";
 
 import { Absolute, Relative } from "./position";
 
