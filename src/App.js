@@ -4,6 +4,7 @@ import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { Helmet } from "react-helmet";
 import { Box } from "rebass";
 
+import FirebaseProvider from "./config/firebase";
 import { ROUTES, THEME } from "./config/contants";
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
@@ -11,6 +12,7 @@ import SignupPage from "./pages/Signup";
 import SearchResultsPage from "./pages/SearchResults";
 import MovieDetailsPage from "./pages/MovieDetails";
 import Header from "./components/Header";
+import AuthUserProvider from "./context/authUserContext";
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
@@ -36,40 +38,48 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export default function App() {
+function Providers({ children }) {
   return (
     <ThemeProvider theme={THEME}>
-      <>
-        <Helmet>
-          <title>Movies Lynks</title>
-        </Helmet>
-        <GlobalStyle />
-        <Router>
-          <Switch>
-            <Route exact path={ROUTES.SIGN_UP} component={SignupPage} />
-            <Route exact path={ROUTES.LOG_IN} component={LoginPage} />
-            <Route
-              path="/"
-              render={() => (
-                <>
-                  <Header />
-                  <Box px={[2, 4, 6]}>
-                    <Route exact path={ROUTES.HOME} render={HomePage} />
-                    <Route
-                      path={ROUTES.SEARCH_RESULTS}
-                      component={SearchResultsPage}
-                    />
-                    <Route
-                      path={ROUTES.MOVIE_DETAILS}
-                      component={MovieDetailsPage}
-                    />
-                  </Box>
-                </>
-              )}
-            />
-          </Switch>
-        </Router>
-      </>
+      <FirebaseProvider>
+        <AuthUserProvider>{children}</AuthUserProvider>
+      </FirebaseProvider>
     </ThemeProvider>
   );
 }
+
+function App() {
+  return (
+    <Providers>
+      <GlobalStyle />
+      <Helmet title="Movies Lynks" />
+      <Router>
+        <Switch>
+          <Route exact path={ROUTES.SIGN_UP} component={SignupPage} />
+          <Route exact path={ROUTES.LOG_IN} component={LoginPage} />
+          <Route
+            path="/"
+            render={() => (
+              <>
+                <Header />
+                <Box px={[2, 4, 6]}>
+                  <Route exact path={ROUTES.HOME} render={HomePage} />
+                  <Route
+                    path={ROUTES.SEARCH_RESULTS}
+                    component={SearchResultsPage}
+                  />
+                  <Route
+                    path={ROUTES.MOVIE_DETAILS}
+                    component={MovieDetailsPage}
+                  />
+                </Box>
+              </>
+            )}
+          />
+        </Switch>
+      </Router>
+    </Providers>
+  );
+}
+
+export default App;

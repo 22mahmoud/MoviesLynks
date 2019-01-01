@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "dotenv": "^6.2.0",
+    "firebase": "^5.7.2",
     "formik": "^1.4.0-0",
     "react": "^16.7.0-alpha.2",
     "react-dom": "^16.7.0-alpha.2",
@@ -14,7 +15,8 @@
     "rebass": "^3.0.0-12",
     "styled-components": "^4.1.3",
     "styled-icons": "^6.2.0",
-    "styled-system": "^3.1.11"
+    "styled-system": "^3.1.11",
+    "yup": "^0.26.6"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -10,6 +10,7 @@ import {
   borderColor
 } from "styled-system";
 import styled from "styled-components";
+import { Box, Text } from "rebass";
 
 import { Absolute, Relative } from "./position";
 
@@ -18,14 +19,15 @@ const StyledInput = styled("input")`
   width: 100%;
   box-sizing: border-box;
   color: white;
+
   &:focus,
   &:active {
     outline: none;
   }
+
   &::placeholder {
     color: ${({ placeholderColor }) => placeholderColor || "white"};
   }
-
   ${background};
   ${fontSize};
   ${space};
@@ -48,4 +50,40 @@ export function Input({ icon, as, ...props }) {
     );
   }
   return <StyledInput {...props} as={as} />;
+}
+
+export function FormInput({
+  label,
+  name,
+  type,
+  placeholder,
+  error,
+  touched,
+  ...rest
+}) {
+  return (
+    <Box>
+      <Text as="label" fontSize={[2, 3]}>
+        {label}
+      </Text>
+      <Input
+        {...rest}
+        name={name}
+        type={type}
+        fontSize={[2, 3]}
+        p={2}
+        color="#383759"
+        borderRadius={5}
+        border={2}
+        borderColor={error && touched ? "tomato" : "#678ade"}
+        placeholderColor="#678ade"
+        placeholder={placeholder}
+      />
+      {error && touched && (
+        <Text fontWeight={0} fontSize={[2, 3]} color="tomato">
+          {error}
+        </Text>
+      )}
+    </Box>
+  );
 }

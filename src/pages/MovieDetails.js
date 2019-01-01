@@ -25,7 +25,6 @@ export default function MovieDetails({ match }) {
     },
     [prevMovieId]
   );
-  console.log("DATA", data);
 
   if (isLoading) {
     return null;

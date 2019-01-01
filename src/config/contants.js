@@ -5,6 +5,15 @@ export const MOVIE_DB_API = {
   BASE_URL: "https://api.themoviedb.org/3"
 };
 
+export const FIREBASE_CONFIG = {
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID
+};
+
 export const ROUTES = {
   HOME: "/",
   SIGN_UP: "/signup",
@@ -33,6 +42,19 @@ export const THEME = {
       paddingLeft: 24,
       paddingRight: 24,
       boxShadow: "0 2px 16px rgba(103,138,222, 0.4)",
+      cursor: "pointer"
+    },
+    disabled: {
+      color: "rgba(0, 0, 0, .6)",
+      backgroundColor: "rgba(220, 220, 220, 1)",
+      borderRadius: 24,
+      paddingLeft: 24,
+      paddingRight: 24
+    },
+    link: {
+      color: "#fff",
+      backgroundColor: "transparent",
+      padding: 0,
       cursor: "pointer"
     }
   },

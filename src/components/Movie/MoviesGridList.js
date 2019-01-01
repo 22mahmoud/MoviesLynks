@@ -31,7 +31,6 @@ export default function MoviesGridList({ url, emoji, title, ariaLabel, opt }) {
     );
   }
 
-  console.log(data.results);
   return (
     <Box>
       <Flex alignItems="center">
