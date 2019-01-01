@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Flex, Box, Heading, Button } from "rebass";
+import { Flex, Box, Heading, Button } from "rebass";
 import { withRouter } from "react-router-dom";
 
 import { Link } from "../../ui/Link";
@@ -32,7 +32,6 @@ function Header({ history }) {
               "Loading .."
             ) : user ? (
               <Flex alignItems="center">
-                {/* //<Box mr={[3, 4]} /> */}
                 <DropDown
                   header={
                     <Badge
