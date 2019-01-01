@@ -48,6 +48,7 @@ export default function MovieDetails({ match }) {
           <MovieStars voteAverage={vote_average} />
           <MovieGenres genres={genres} />
           <MovieDetailsInfo
+            id={id}
             title={title}
             tagline={tagline}
             overview={overview}

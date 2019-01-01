@@ -19,7 +19,8 @@ export const ROUTES = {
   SIGN_UP: "/signup",
   LOG_IN: "/login",
   SEARCH_RESULTS: "/search/:query",
-  MOVIE_DETAILS: "/movie/:id"
+  MOVIE_DETAILS: "/movie/:id",
+  MY_FAV: "/favourites"
 };
 
 export const THEME = {
@@ -41,6 +42,16 @@ export const THEME = {
       borderRadius: 24,
       paddingLeft: 24,
       paddingRight: 24,
+      boxShadow: "0 2px 16px rgba(103,138,222, 0.4)",
+      cursor: "pointer"
+    },
+    outline: {
+      color: "#fff",
+      backgroundColor: "transparent ",
+      borderRadius: 24,
+      paddingLeft: 24,
+      paddingRight: 24,
+      border: "2px solid #678ade",
       boxShadow: "0 2px 16px rgba(103,138,222, 0.4)",
       cursor: "pointer"
     },

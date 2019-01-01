@@ -6,20 +6,26 @@ const AuthUserContext = React.createContext(null);
 export const useAuthUser = () => useContext(AuthUserContext);
 
 export default function AuthUserProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(
+    () => JSON.parse(localStorage.getItem("user")) || false
+  );
   const [loading, setLoading] = useState(true);
 
   const firebase = useFirebase();
 
   useEffect(() => {
-    let listener = firebase.auth.onAuthStateChanged(user => {
-      if (user) {
+    let listener = firebase.auth.onAuthStateChanged(
+      user => {
+        localStorage.setItem("user", JSON.stringify(user));
         setUser(user);
-      } else {
+        setLoading(false);
+      },
+      () => {
+        localStorage.removeItem("user");
         setUser(null);
+        setLoading(false);
       }
-      setLoading(false);
-    });
+    );
 
     // clean up
     return () => listener();

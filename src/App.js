@@ -6,13 +6,17 @@ import { Box } from "rebass";
 
 import FirebaseProvider from "./config/firebase";
 import { ROUTES, THEME } from "./config/contants";
+import AuthUserProvider from "./context/authUserContext";
+
+import Header from "./components/Header";
+
+// Pages
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import SignupPage from "./pages/Signup";
 import SearchResultsPage from "./pages/SearchResults";
 import MovieDetailsPage from "./pages/MovieDetails";
-import Header from "./components/Header";
-import AuthUserProvider from "./context/authUserContext";
+import MyFavourites from "./pages/MyFavourites";
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
@@ -72,6 +76,7 @@ function App() {
                     path={ROUTES.MOVIE_DETAILS}
                     component={MovieDetailsPage}
                   />
+                  <Route path={ROUTES.MY_FAV} component={MyFavourites} />
                 </Box>
               </>
             )}

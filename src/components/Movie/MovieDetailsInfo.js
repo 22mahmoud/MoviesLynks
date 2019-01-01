@@ -1,10 +1,16 @@
 import React from "react";
-import { Box, Heading, Text } from "rebass";
+import { Flex, Box, Heading, Text } from "rebass";
 
-export default function MovieDetailsInfo({ title, tagline, overview }) {
+import MovieFavButton from "./MovieFavButton";
+
+export default function MovieDetailsInfo({ title, tagline, overview, id }) {
   return (
     <Box>
-      <Heading fontSize={[3, 4, 6]}> {title} </Heading>
+      <Flex alignItems="center">
+        <Heading fontSize={[3, 4, 6]}> {title} </Heading>
+        <Box mr={[2, 3]} />
+        <MovieFavButton movieId={id} />
+      </Flex>
       <Heading fontSize={[2, 3]} fontWeight={0} style={{ opacity: ".5" }}>
         {tagline}
       </Heading>

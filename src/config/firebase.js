@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { FIREBASE_CONFIG } from "./contants";
 import app from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
 
 const FirebaseContext = React.createContext();
 
@@ -29,6 +30,8 @@ const config = {
 export default function FirebaseProvider({ children }) {
   const firebase = app.initializeApp(config);
   const auth = app.auth();
+  const db = app.firestore();
+  db.settings({ timestampsInSnapshots: true });
 
   const signup = ({ email, password }) =>
     auth.createUserWithEmailAndPassword(email, password);
@@ -38,12 +41,40 @@ export default function FirebaseProvider({ children }) {
 
   const signout = () => auth.signOut();
 
+  const favMovie = (userId, MovieId) =>
+    db.collection("favs").add({
+      movie: MovieId,
+      user: userId
+    });
+
+  const isFav = async (userId, movieId) => {
+    let isAlreadyFav = false;
+
+    const res = await db
+      .collection("favs")
+      .where("movie", "==", movieId)
+      .where("user", "==", userId)
+      .get();
+    res.forEach(doc => {
+      const { movie, user } = doc.data();
+      console.log("FIRE", movie, user);
+      if (movie === movieId && user === userId) {
+        isAlreadyFav = true;
+      }
+    });
+
+    return isAlreadyFav;
+  };
+
   const ctx = {
     auth,
     firebase,
+    db,
+    isFav,
     signout,
     login,
-    signup
+    signup,
+    favMovie
   };
 
   return (
