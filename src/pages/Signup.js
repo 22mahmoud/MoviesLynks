@@ -5,7 +5,11 @@ import { Text, Link } from "rebass";
 import Layout from "../components/AuthForm/Layout";
 import AuthForm from "../components/AuthForm/AuthForm";
 
-export default function Signup() {
+export default function Signup({ history }) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (user) {
+    history.push("/");
+  }
   return (
     <Layout title="Signup">
       <Layout.Heading>First, create an MoviesLynks account.</Layout.Heading>

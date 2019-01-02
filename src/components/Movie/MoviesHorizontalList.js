@@ -5,6 +5,7 @@ import { LeftArrow } from "styled-icons/boxicons-solid/LeftArrow";
 import { RightArrow } from "styled-icons/boxicons-solid/RightArrow";
 
 import useFetchApi from "../../utils/useFetchApi";
+import Spinner from "../../ui/Spinner";
 import MovieCard from "./MovieCard";
 
 const Wrapper = styled(Flex)`
@@ -20,7 +21,7 @@ const Wrapper = styled(Flex)`
 
 export default function MoviesList({ url, emoji, title, ariaLabel, opt = {} }) {
   let wrapperRef = React.createRef();
-  const { data, isLoading } = useFetchApi(url, opt);
+  const { data, isLoading, isError } = useFetchApi(url, opt);
 
   const handleScroll = type => {
     if (wrapperRef.current) {
@@ -40,12 +41,12 @@ export default function MoviesList({ url, emoji, title, ariaLabel, opt = {} }) {
   if (isLoading) {
     return (
       <Flex alignItems="center" justifyContent="center" style={{ height: 320 }}>
-        Loading...
+        <Spinner />
       </Flex>
     );
   }
-
-  return (
+  console.log(data.results.length, "DA");
+  return data.results.length > 1 ? (
     <Box>
       <Flex alignItems="center">
         <Box>
@@ -87,5 +88,5 @@ export default function MoviesList({ url, emoji, title, ariaLabel, opt = {} }) {
         ))}
       </Wrapper>
     </Box>
-  );
+  ) : null;
 }

@@ -10,6 +10,7 @@ import MovieDetailsInfo from "../components/Movie/MovieDetailsInfo";
 import MovieRating from "../components/Movie/MovieRating";
 import usePrevious from "../utils/usePrevious";
 import { useFavMovie } from "../context/favMovieContext";
+import Spinner from "../ui/Spinner";
 
 export default function MovieDetails({ match }) {
   const { id } = match.params;
@@ -38,7 +39,11 @@ export default function MovieDetails({ match }) {
   );
 
   if (isLoading) {
-    return null;
+    return (
+      <Flex alignItems="center" justifyContent="center" style={{ height: 320 }}>
+        <Spinner />
+      </Flex>
+    );
   }
 
   if (isError) {
@@ -51,7 +56,13 @@ export default function MovieDetails({ match }) {
       <Helmet title={title} />
       <Flex flexWrap="wrap">
         <Box>
-          <Image src={`https://image.tmdb.org/t/p/w200/${poster_path}`} />
+          <Image
+            src={
+              poster_path
+                ? `https://image.tmdb.org/t/p/w200/${poster_path}`
+                : "https://via.placeholder.com/200x320?text=No%20Image"
+            }
+          />
         </Box>
 
         <Box ml={[0, 4]} width={[1, 1 / 2]}>

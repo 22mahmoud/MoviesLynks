@@ -8,6 +8,7 @@ import { DropDown } from "../../ui/dorpDown";
 import SearchForm from "./SearchForm";
 import { useAuthUser } from "../../context/authUserContext";
 import { useFirebase } from "../../config/firebase";
+import Spinner from "../../ui/Spinner";
 
 function Header({ history }) {
   const { user, loading } = useAuthUser();
@@ -29,7 +30,7 @@ function Header({ history }) {
         <Box>
           <>
             {loading ? (
-              "Loading .."
+              <Spinner />
             ) : user ? (
               <Flex alignItems="center">
                 <DropDown
