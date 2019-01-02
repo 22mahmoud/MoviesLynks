@@ -43,7 +43,6 @@ export default function SearchResults({ match }) {
       pageNumber <= data.total_pages
     ) {
       setPageNumber(pageNumber + 1);
-      console.log(pageNumber);
       if (prevPage && prevPage.pageNumber !== pageNumber) {
         await fetchMore({
           query,

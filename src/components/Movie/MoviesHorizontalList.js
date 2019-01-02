@@ -45,7 +45,6 @@ export default function MoviesList({ url, emoji, title, ariaLabel, opt = {} }) {
       </Flex>
     );
   }
-  console.log(data.results.length, "DA");
   return data.results.length > 1 ? (
     <Box>
       <Flex alignItems="center">
