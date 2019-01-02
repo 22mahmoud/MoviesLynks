@@ -17,6 +17,7 @@ import SignupPage from "./pages/Signup";
 import SearchResultsPage from "./pages/SearchResults";
 import MovieDetailsPage from "./pages/MovieDetails";
 import MyFavourites from "./pages/MyFavourites";
+import FavMovieProvider from "./context/favMovieContext";
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
@@ -46,7 +47,9 @@ function Providers({ children }) {
   return (
     <ThemeProvider theme={THEME}>
       <FirebaseProvider>
-        <AuthUserProvider>{children}</AuthUserProvider>
+        <AuthUserProvider>
+          <FavMovieProvider>{children}</FavMovieProvider>
+        </AuthUserProvider>
       </FirebaseProvider>
     </ThemeProvider>
   );

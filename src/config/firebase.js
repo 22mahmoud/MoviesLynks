@@ -41,9 +41,11 @@ export default function FirebaseProvider({ children }) {
 
   const signout = () => auth.signOut();
 
-  const favMovie = (userId, MovieId) =>
+  const favMovie = (userId, { id, vote_average, poster_path }) =>
     db.collection("favs").add({
-      movie: MovieId,
+      movie: id,
+      vote_average,
+      poster_path,
       user: userId
     });
 
@@ -57,7 +59,6 @@ export default function FirebaseProvider({ children }) {
       .get();
     res.forEach(doc => {
       const { movie, user } = doc.data();
-      console.log("FIRE", movie, user);
       if (movie === movieId && user === userId) {
         isAlreadyFav = true;
       }
@@ -66,15 +67,43 @@ export default function FirebaseProvider({ children }) {
     return isAlreadyFav;
   };
 
+  const removeMvoieFromFavList = async (userId, movieId) => {
+    let isDeleted = false;
+    const res = await db
+      .collection("favs")
+      .where("movie", "==", movieId)
+      .where("user", "==", userId)
+      .get();
+
+    res.forEach(async doc => {
+      const { id } = doc;
+      await db
+        .collection("favs")
+        .doc(id)
+        .delete();
+      isDeleted = true;
+    });
+
+    return isDeleted;
+  };
+
+  const myFavMovies = async userId =>
+    db
+      .collection("favs")
+      .where("user", "==", userId)
+      .get();
+
   const ctx = {
     auth,
     firebase,
+    removeMvoieFromFavList,
     db,
     isFav,
     signout,
     login,
     signup,
-    favMovie
+    favMovie,
+    myFavMovies
   };
 
   return (

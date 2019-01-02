@@ -9,11 +9,22 @@ import MovieGenres from "../components/Movie/MovieGenres";
 import MovieDetailsInfo from "../components/Movie/MovieDetailsInfo";
 import MovieRating from "../components/Movie/MovieRating";
 import usePrevious from "../utils/usePrevious";
+import { useFavMovie } from "../context/favMovieContext";
 
 export default function MovieDetails({ match }) {
   const { id } = match.params;
   const { data, isLoading, isError, GET } = useFetchApi(`/movie/${id}`);
+  const { setMovie } = useFavMovie();
   const prevMovieId = usePrevious({ id });
+
+  useEffect(
+    () => {
+      if (data && data.id) {
+        setMovie(data);
+      }
+    },
+    [data]
+  );
 
   useEffect(
     () => {
@@ -34,7 +45,7 @@ export default function MovieDetails({ match }) {
     return null;
   }
 
-  const { poster_path, vote_average, genres, title, tagline, overview } = data;
+  const { poster_path, title, vote_average } = data;
   return (
     <>
       <Helmet title={title} />
@@ -46,13 +57,8 @@ export default function MovieDetails({ match }) {
         <Box ml={[0, 4]} width={[1, 1 / 2]}>
           <MovieRating voteAverage={vote_average} />
           <MovieStars voteAverage={vote_average} />
-          <MovieGenres genres={genres} />
-          <MovieDetailsInfo
-            id={id}
-            title={title}
-            tagline={tagline}
-            overview={overview}
-          />
+          <MovieGenres />
+          <MovieDetailsInfo />
         </Box>
       </Flex>
       <hr />

@@ -5,8 +5,12 @@ import { FavoriteBorder } from "styled-icons/material/FavoriteBorder";
 import { Favorite } from "styled-icons/material/Favorite";
 
 import { useFirebase } from "../../config/firebase";
+import { useFavMovie } from "../../context/favMovieContext";
 
 function MovieFavButton({ movieId, history }) {
+  const {
+    movie: { id, poster_path, vote_average }
+  } = useFavMovie();
   const fb = useFirebase();
   const [loading, setLoading] = useState(true);
   const [isFav, setIsFav] = useState(false);
@@ -15,7 +19,7 @@ function MovieFavButton({ movieId, history }) {
 
   const checkIsMovieAlreadyFav = async () => {
     setLoading(true);
-    const res = await fb.isFav(user.uid, movieId);
+    const res = await fb.isFav(user.uid, id);
     setIsFav(res);
     setLoading(false);
   };
@@ -34,9 +38,12 @@ function MovieFavButton({ movieId, history }) {
         disabled={loading}
         variant={loading ? "disabled" : "primary"}
         onClick={async () => {
-          // setLoading(true);
-          // await fb.favMovie(uid, movieId);
-          // setLoading(false);
+          if (user) {
+            setLoading(true);
+            await fb.removeMvoieFromFavList(user.uid, id);
+            setIsFav(false);
+            setLoading(false);
+          }
         }}
       >
         <Favorite size={26} color="white" />
@@ -51,7 +58,11 @@ function MovieFavButton({ movieId, history }) {
       onClick={async () => {
         setLoading(true);
         if (user) {
-          await fb.favMovie(user.uid, movieId);
+          await fb.favMovie(user.uid, {
+            id,
+            vote_average,
+            poster_path
+          });
           setLoading(false);
           setIsFav(true);
         } else {
