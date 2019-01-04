@@ -21,7 +21,7 @@ const Wrapper = styled(Flex)`
 
 export default function MoviesList({ url, emoji, title, ariaLabel, opt = {} }) {
   let wrapperRef = React.createRef();
-  const { data, isLoading, isError } = useFetchApi(url, opt);
+  const { data, isLoading } = useFetchApi(url, opt);
 
   const handleScroll = type => {
     if (wrapperRef.current) {

@@ -10,6 +10,7 @@ import Spinner from "../ui/Spinner";
 export default function SearchResults({ match }) {
   const { query } = match.params;
   const [pageNumber, setPageNumber] = useState(2);
+  const [newResLoading, setNewResLoading] = useState(false);
   const { data, isLoading, GET, fetchMore } = useFetchApi("/search/movie", {
     query
   });
@@ -39,15 +40,17 @@ export default function SearchResults({ match }) {
 
   const handlOnScroll = async () => {
     if (
-      window.scrollY + window.innerHeight >= document.body.scrollHeight - 500 &&
+      window.scrollY + window.innerHeight >= document.body.scrollHeight - 800 &&
       pageNumber <= data.total_pages
     ) {
+      setNewResLoading(true);
       setPageNumber(pageNumber + 1);
       if (prevPage && prevPage.pageNumber !== pageNumber) {
         await fetchMore({
           query,
           page: pageNumber
         });
+        setNewResLoading(false);
       }
     }
   };
@@ -65,10 +68,16 @@ export default function SearchResults({ match }) {
       <Helmet title="Movies Lynks | Results" />
       <MoviesGridList
         data={data.results}
-        title="Search Results"
+        title={`Search Results`}
+        subTitle={`for ${query}`}
         emoji={`🍿`}
         ariaLabel="popcorn"
       />
+      {newResLoading && (
+        <Flex alignItems="center" justifyContent="center" mb={4}>
+          <Spinner />
+        </Flex>
+      )}
     </>
   );
 }

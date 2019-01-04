@@ -12,6 +12,7 @@ const useFetchApi = (intialUrl, intialOpts = {}) => {
   const fetchData = async () => {
     setIsError(false);
     setIsLoading(true);
+    setData({});
 
     try {
       const { data } = await axios(url, {
