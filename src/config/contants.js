@@ -69,5 +69,8 @@ export const THEME = {
       cursor: "pointer"
     }
   },
-  shadows: { light: "0 2px 16px rgba(103,138,222, 0.4)" }
+  shadows: [
+    "0 2px 16px rgba(103,138,222, 0.4)",
+    "0 2px 16px rgba(19, 20, 30, .2)"
+  ]
 };

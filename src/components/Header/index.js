@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Box, Heading, Button } from "rebass";
+import { Text, Flex, Box, Heading, Button } from "rebass";
 import { withRouter } from "react-router-dom";
 
 import { Link } from "../../ui/Link";
@@ -24,7 +24,7 @@ function Header({ history }) {
       >
         <Box>
           <Link to="/">
-            <Heading> MobvieLynks </Heading>
+            <Heading> MoviesLynks </Heading>
           </Link>
         </Box>
         <Box>
@@ -48,11 +48,21 @@ function Header({ history }) {
                     </Badge>
                   }
                 >
-                  <DropDown.Menu bg="darkBlue">
-                    <DropDown.Item>
-                      <Link to="/favourites"> My favourites </Link>
+                  <DropDown.Menu
+                    bg="darkBlue"
+                    mt={2}
+                    boxShadow={1}
+                    borderRadius={6}
+                    style={{ width: "14rem" }}
+                  >
+                    <DropDown.Item mt={2} mb={2}>
+                      <Link to="/favourites">
+                        <Text px={4} fontSize={2}>
+                          My favourites
+                        </Text>
+                      </Link>
                     </DropDown.Item>
-                    <DropDown.Item>
+                    <DropDown.Item mb={2}>
                       <Button
                         variant="link"
                         onClick={() => {
@@ -60,8 +70,9 @@ function Header({ history }) {
                           history.push("/");
                         }}
                       >
-                        {" "}
-                        Logout{" "}
+                        <Text px={4} fontSize={2}>
+                          Logout
+                        </Text>
                       </Button>
                     </DropDown.Item>
                   </DropDown.Menu>

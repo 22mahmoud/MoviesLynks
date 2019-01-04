@@ -5,12 +5,12 @@ import { SearchAlt } from "styled-icons/boxicons-regular/SearchAlt";
 import { Input } from "../../ui/Form";
 
 function SearchForm({ history }) {
-  const [searchValue, setSerachValue] = useState("");
+  const [searchValue, setSearchValue] = useState("");
 
   const handleOnSubmit = e => {
     e.preventDefault();
     if (searchValue) {
-      setSerachValue("");
+      setSearchValue("");
       history.push(`/search/${searchValue}`);
     }
   };
@@ -19,16 +19,16 @@ function SearchForm({ history }) {
     <Box>
       <form onSubmit={handleOnSubmit}>
         <Input
-          fontSize={[3]}
+          fontSize={[2]}
           p={2}
           bg="transparent"
           icon={<SearchAlt size={24} color={"#678ade"} />}
           borderBottom={1}
           placeholderColor="lightBlue"
           borderColor="lightBlue"
-          placeholder="Serach.."
+          placeholder="Search.."
           value={searchValue}
-          onChange={e => setSerachValue(e.target.value)}
+          onChange={e => setSearchValue(e.target.value)}
         />
       </form>
     </Box>

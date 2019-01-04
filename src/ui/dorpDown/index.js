@@ -1,9 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  DropDownWrapper,
-  DropDownMenuWrapper,
-  DropDownMenuItemWrapper
-} from "./style";
+import { ItemWrapper, MenuWrapper, Wrapper } from "./style";
 
 const DropDownContext = React.createContext();
 
@@ -11,7 +7,7 @@ export const useDropDown = () => useContext(DropDownContext);
 
 export const DropDown = ({ header, children }) => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
-  const dropDownRef = React.createRef();
+  let dropDownRef = React.createRef();
 
   const closeDropDown = event => {
     if (dropDownRef.current) {
@@ -27,10 +23,9 @@ export const DropDown = ({ header, children }) => {
 
   useEffect(
     () => {
-      window.addEventListener("click", closeDropDown.bind(this));
+      window.addEventListener("click", closeDropDown);
 
-      return () =>
-        window.removeEventListener("click", closeDropDown.bind(this));
+      return () => window.removeEventListener("click", closeDropDown);
     },
     [isDropDownOpen]
   );
@@ -48,23 +43,23 @@ export const DropDown = ({ header, children }) => {
 
   return (
     <DropDownContext.Provider value={ctx}>
-      <DropDownWrapper ref={dropDownRef}>
+      <Wrapper ref={dropDownRef}>
         {/* eslint-disable-next-line  */}
         <span onClick={toggleDropDownOpen}>{header}</span>
         {children}
-      </DropDownWrapper>
+      </Wrapper>
     </DropDownContext.Provider>
   );
 };
 
- const Menu = ({ children, ...props }) => {
+const Menu = ({ children, ...props }) => {
   const { isDropDownOpen } = useDropDown();
   return isDropDownOpen ? (
-    <DropDownMenuWrapper {...props}>{children}</DropDownMenuWrapper>
+    <MenuWrapper {...props}>{children}</MenuWrapper>
   ) : null;
 };
 
- const Item = ({ children }) => {
+const Item = ({ children, ...props }) => {
   const { setIsDropDownOpen } = useDropDown();
 
   const _children = React.Children.map(children, elm => {
@@ -78,7 +73,7 @@ export const DropDown = ({ header, children }) => {
       }
     });
   });
-  return <DropDownMenuItemWrapper>{_children}</DropDownMenuItemWrapper>;
+  return <ItemWrapper {...props}>{_children}</ItemWrapper>;
 };
 
 DropDown.Menu = Menu;
