@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 import { Box } from "rebass";
 
 import FirebaseProvider from "./config/firebase";
-import { ROUTES, THEME } from "./config/contants";
+import { ROUTES, THEME } from "./config/constants";
 import AuthUserProvider from "./context/authUserContext";
 
 import Header from "./components/Header";
@@ -34,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     height: 100vh;
     color: #fff;
-    background-color: #26283f; 
+    background-color: #26283f;
     -webkit-font-smoothing: subpixel-antialiased;
   }
 

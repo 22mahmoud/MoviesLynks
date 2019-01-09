@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { MOVIE_DB_API } from "./contants";
+import { MOVIE_DB_API } from "./constants";
 
 const { KEY, BASE_URL } = MOVIE_DB_API;
 
