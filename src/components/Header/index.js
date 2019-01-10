@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 
 import { Link } from "../../ui/Link";
 import { Badge } from "../../ui/Badge";
-import { DropDown } from "../../ui/dorpDown";
+import { DropDown } from "../../ui/dropDown";
 import SearchForm from "./SearchForm";
 import { useAuthUser } from "../../context/authUserContext";
 import { useFirebase } from "../../config/firebase";

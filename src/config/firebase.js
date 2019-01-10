@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { FIREBASE_CONFIG } from "./contants";
+import { FIREBASE_CONFIG } from "./constants";
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
