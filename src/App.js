@@ -1,23 +1,25 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { Helmet } from "react-helmet";
 import { Box } from "rebass";
 
-import FirebaseProvider from "./config/firebase";
 import { ROUTES, THEME } from "./config/constants";
+
+import FirebaseProvider from "./config/firebase";
+import FavMovieProvider from "./context/favMovieContext";
 import AuthUserProvider from "./context/authUserContext";
 
 import Header from "./components/Header";
+import Spinner from "./ui/Spinner";
 
 // Pages
-import HomePage from "./pages/Home";
-import LoginPage from "./pages/Login";
-import SignupPage from "./pages/Signup";
-import SearchResultsPage from "./pages/SearchResults";
-import MovieDetailsPage from "./pages/MovieDetails";
-import MyFavourites from "./pages/MyFavourites";
-import FavMovieProvider from "./context/favMovieContext";
+const HomePage = lazy(() => import("./pages/Home"));
+const LoginPage = lazy(() => import("./pages/Login"));
+const SignupPage = lazy(() => import("./pages/Signup"));
+const SearchResultsPage = lazy(() => import("./pages/SearchResults"));
+const MovieDetailsPage = lazy(() => import("./pages/MovieDetails"));
+const MyFavouritesPage = lazy(() => import("./pages/MyFavourites"));
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
@@ -60,32 +62,49 @@ function App() {
     <Providers>
       <GlobalStyle />
       <Helmet title="Movies Lynks" />
-      <Router>
-        <Switch>
-          <Route exact path={ROUTES.SIGN_UP} component={SignupPage} />
-          <Route exact path={ROUTES.LOG_IN} component={LoginPage} />
-          <Route
-            path="/"
-            render={() => (
-              <>
-                <Header />
-                <Box px={[2, 4, 6]}>
-                  <Route exact path={ROUTES.HOME} render={HomePage} />
-                  <Route
-                    path={ROUTES.SEARCH_RESULTS}
-                    component={SearchResultsPage}
-                  />
-                  <Route
-                    path={ROUTES.MOVIE_DETAILS}
-                    component={MovieDetailsPage}
-                  />
-                  <Route path={ROUTES.MY_FAV} component={MyFavourites} />
-                </Box>
-              </>
-            )}
-          />
-        </Switch>
-      </Router>
+      <Suspense fallback={<Spinner />}>
+        <Router>
+          <Switch>
+            <Route
+              exact
+              path={ROUTES.SIGN_UP}
+              render={props => <SignupPage {...props} />}
+            />
+            <Route
+              exact
+              path={ROUTES.LOG_IN}
+              render={props => <LoginPage {...props} />}
+            />
+            <Route
+              path="/"
+              render={() => (
+                <>
+                  <Header />
+                  <Box px={[2, 4, 6]}>
+                    <Route
+                      exact
+                      path={ROUTES.HOME}
+                      render={props => <HomePage {...props} />}
+                    />
+                    <Route
+                      path={ROUTES.SEARCH_RESULTS}
+                      render={props => <SearchResultsPage {...props} />}
+                    />
+                    <Route
+                      path={ROUTES.MOVIE_DETAILS}
+                      render={props => <MovieDetailsPage {...props} />}
+                    />
+                    <Route
+                      path={ROUTES.MY_FAV}
+                      render={props => <MyFavouritesPage {...props} />}
+                    />
+                  </Box>
+                </>
+              )}
+            />
+          </Switch>
+        </Router>
+      </Suspense>
     </Providers>
   );
 }

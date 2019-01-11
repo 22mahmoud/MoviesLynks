@@ -1,19 +1,16 @@
-import React from "react";
 import styled from "styled-components";
+import React from "react";
+
+const DEFAULT_SIZE = 3;
 
 const Spinner = styled("div")`
-  display: inline-block;
-  position: relative;
-  width: 20px;
-  height: 20px;
+  width: ${p => `${p.size || DEFAULT_SIZE * 4}px`};
+  height: ${p => `${p.size || DEFAULT_SIZE * 4}px`};
 
   > div {
-    box-sizing: border-box;
-    display: block;
     position: absolute;
-    width: 15px;
-    height: 15px;
-    margin: 2px;
+    width: ${p => `${p.size || DEFAULT_SIZE * 4}px`};
+    height: ${p => `${p.size || DEFAULT_SIZE * 4}px`};
     border: ${p => `2px solid ${p.color || "#fff"}`};
     border-radius: 50%;
     animation: ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
@@ -30,6 +27,7 @@ const Spinner = styled("div")`
   > div:nth-child(3) {
     animation-delay: -0.15s;
   }
+
   @keyframes ring {
     0% {
       transform: rotate(0deg);
