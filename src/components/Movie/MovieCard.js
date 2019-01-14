@@ -48,7 +48,7 @@ export default function MovieCard({ movie }) {
       py={3}
       m={1}
     >
-      <Details isHoverd={isHoverd}>
+      <Details isHoverd={isHoverd} as={Link} to={`/movie/${movie.id}`}>
         <Flex
           style={{ height: "100%" }}
           justifyContent="center"
