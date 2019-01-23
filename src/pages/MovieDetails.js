@@ -59,9 +59,10 @@ export default function MovieDetails({ match }) {
           <Image
             src={
               poster_path
-                ? `https://image.tmdb.org/t/p/w200/${poster_path}`
-                : "https://via.placeholder.com/200x320?text=No%20Image"
+                ? `https://image.tmdb.org/t/p/w400/${poster_path}`
+                : "https://via.placeholder.com/400x640?text=No%20Image"
             }
+            width="200px"
           />
         </Box>
 

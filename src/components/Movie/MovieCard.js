@@ -32,6 +32,7 @@ const MovieCardWrapper = styled(Card)`
       filter: blur(2px) opacity(0.1);
     `};
   height: 100%;
+  width: 200px;
 `;
 
 export default function MovieCard({ movie }) {
@@ -67,8 +68,8 @@ export default function MovieCard({ movie }) {
         isHoverd={isHoverd}
         backgroundImage={
           movie.poster_path
-            ? `url(https://image.tmdb.org/t/p/w200/${movie.poster_path})`
-            : "url(https://via.placeholder.com/200x320?text=No%20Image)"
+            ? `url(https://image.tmdb.org/t/p/w400/${movie.poster_path})`
+            : "url(https://via.placeholder.com/400x640?text=No%20Image)"
         }
         backgroundSize="cover"
         borderRadius={5}
